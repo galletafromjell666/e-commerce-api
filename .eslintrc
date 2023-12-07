@@ -1,0 +1,72 @@
+{
+    "extends": [
+        "plugin:prettier/recommended",
+        "prettier",
+        "eslint:recommended",
+        "airbnb-base",
+        "plugin:import/typescript",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "sourceType": "module",
+        "project": "./tsconfig.json",
+        "tsconfigRootDir": "./"
+    },
+    "settings": {
+      "typescript": {
+        "project": [
+          "packages/tsconfig.json"
+        ]
+      },
+      "import/resolver": {
+        "typescript": {},
+        "node": {
+          "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        }
+      }
+    },
+    "plugins": [
+        "@typescript-eslint",
+        "import"
+      ],
+    "rules": {
+        "prettier/prettier": ["error", { "singleQuote": true }],
+        "import/prefer-default-export": "warn",
+        "import/extensions": "off",
+        "no-void": ["error", { "allowAsStatement": true }],
+        "object-curly-newline": ["error", {
+            "multiline": true,
+            "consistent": true
+          }],
+          "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ],
+    // forbid usage of unused variables (marked with an _)
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": ["parameter", "variable"],
+        "leadingUnderscore": "forbid",
+        "filter": {
+          // keep this one open for destructuring
+          "regex": "_*",
+          "match": false
+        },
+        "format": null
+      },
+      {
+        "selector": "parameter",
+        "leadingUnderscore": "require",
+        "format": null,
+        "modifiers": ["unused"]
+      }
+    ]
+    }
+}
