@@ -1,7 +1,12 @@
 import { Schema, model } from 'mongoose';
 import type { Address } from '@/interfaces/address.interface';
 
-const adressSchema = new Schema<Address>({
+const addressSchema = new Schema<Address>({
+  isPrimaryAddress: {
+    required: true,
+    type: Boolean,
+    default: false,
+  },
   country: {
     type: String,
     required: true,
@@ -28,4 +33,4 @@ const adressSchema = new Schema<Address>({
   },
 });
 
-export default model('adress', adressSchema);
+export default model('Address', addressSchema);

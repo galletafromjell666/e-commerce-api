@@ -1,4 +1,5 @@
 export interface Address {
+  isPrimaryAddress: boolean;
   country: string;
   street1: string;
   street2: string;

@@ -26,13 +26,9 @@ const CustomersSchema = new Schema<Customer>(
       required: true,
       default: false,
     },
-    address: {
-      type: AddressModel.schema,
-      required: true,
-    },
-    shippingAddresses: [AddressModel.schema],
+    addresses: [AddressModel.schema],
   },
   { timestamps: true, versionKey: false },
 );
 
-export default model('customers', CustomersSchema);
+export default model('Customer', CustomersSchema);

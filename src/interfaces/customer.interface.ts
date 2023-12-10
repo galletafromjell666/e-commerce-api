@@ -7,6 +7,5 @@ export interface Customer {
   hashedPassword: string;
   email: string;
   isEmailVerified: boolean;
-  address: Address;
-  shippingAddresses: Address[];
+  addresses: Address[];
 }
