@@ -4,8 +4,8 @@ import { Address } from './address.interface';
 export interface Customer {
   firstName: string;
   lastName: string;
-  hashedPassword: string;
+  hashedPassword?: string;
   email: string;
-  isEmailVerified: boolean;
+  isEmailVerified?: boolean;
   addresses: Address[];
 }
