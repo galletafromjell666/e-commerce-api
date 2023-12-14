@@ -1,28 +1,10 @@
-import Ajv, { JSONSchemaType } from 'ajv';
-import addFormats from 'ajv-formats';
-import mongoose from 'mongoose';
-import { Customer } from '@/interfaces/customer.interface';
+import ajvInstance from '@/utils/ajvInstance';
+import addressSchema from '../common/address.schema';
 
-const ajvInstance = new Ajv({
-  allErrors: true,
-});
+ajvInstance.addSchema(addressSchema);
 
-addFormats(ajvInstance);
-
-// Taken from https://stackoverflow.com/a/70848445/17212989
-ajvInstance.addFormat('mongoObjectId', {
-  type: 'string',
-  validate: (data) => {
-    try {
-      const objectID = new mongoose.Types.ObjectId(data);
-      const objectIDString = objectID.toString();
-      return objectIDString === data;
-    } catch (e) {
-      return false;
-    }
-  },
-});
 const schema = {
+  $id: 'api://ajv/create_customer.schema',
   type: 'object',
   properties: {
     firstName: {
@@ -40,22 +22,20 @@ const schema = {
       minLength: 3,
       maxLength: 100,
     },
-    hashedPassword: {
+    password: {
+      // unhashed
       type: 'string',
-      nullable: true,
-    },
-    isEmailVerified: {
-      type: 'boolean',
-      nullable: true,
+      minLength: 3,
+      maxLength: 100,
     },
     addresses: {
       type: 'array',
       items: {
-        $ref: 'address',
+        $ref: 'address.schema#',
       },
     },
   },
-  required: ['firstName'],
+  required: ['firstName', 'lastName', 'email', 'password'],
   additionalProperties: false,
 };
 

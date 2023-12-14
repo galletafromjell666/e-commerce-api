@@ -1,15 +1,5 @@
-import Ajv, { JSONSchemaType } from 'ajv';
-import addFormats from 'ajv-formats';
-import { Address } from '@/interfaces/address.interface';
-
-const ajvInstance = new Ajv({
-  allErrors: true,
-});
-
-addFormats(ajvInstance);
-
-const schema = {
-  $id: 'address',
+const addressSchema = {
+  $id: 'api://ajv/address.schema',
   type: 'object',
   properties: {
     country: {
@@ -51,5 +41,5 @@ const schema = {
   },
 };
 
-const compiledSchema = ajvInstance.compile(schema);
-export default compiledSchema;
+// it is only used as a reference for order and user
+export default addressSchema;

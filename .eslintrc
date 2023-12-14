@@ -48,14 +48,12 @@
         "caughtErrorsIgnorePattern": "^_"
       }
     ],
-    // forbid usage of unused variables (marked with an _)
     "@typescript-eslint/naming-convention": [
       "error",
       {
         "selector": ["parameter", "variable"],
         "leadingUnderscore": "forbid",
         "filter": {
-          // keep this one open for destructuring
           "regex": "_*",
           "match": false
         },
@@ -68,5 +66,15 @@
         "modifiers": ["unused"]
       }
     ]
-    }
+    },
+    "overrides": [
+      {
+        "files": ["src/routes/*.ts"],
+        "rules": {
+          // Disabling this rule for a type issue, remove when this is solved:
+          // https://github.com/express-promise-router/express-promise-router/issues/230#issuecomment-983004686
+          "@typescript-eslint/no-misused-promises": "off"
+        }
+      }
+    ]
 }

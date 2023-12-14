@@ -4,6 +4,7 @@ import { Address } from './address.interface';
 export interface Customer {
   firstName: string;
   lastName: string;
+  password: string; // unhashed, just for login/sign in
   hashedPassword?: string;
   email: string;
   isEmailVerified?: boolean;

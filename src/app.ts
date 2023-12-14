@@ -9,6 +9,6 @@ const PORT = process.env.PORT ?? 3301;
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use('api/v1/', router);
+app.use(router);
 void dbConnect().then(() => logger.info('DB connected'));
 app.listen(PORT, () => logger.info(`SERVER RUNNING ON PORT ${PORT}`));
