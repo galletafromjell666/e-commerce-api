@@ -1,11 +1,11 @@
 import express from 'express';
 import cors from 'cors';
-import 'dotenv/config';
-import router from '@/routes';
-import { logger } from '@/utils/index';
-import dbConnect from '@/config/mongo';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
+import 'dotenv/config';
+import dbConnect from '@/config/mongo';
+import router from '@/routes';
+import { logger } from '@/utils/index';
 import swaggerOptions from '@/config/swagger';
 
 const PORT = process.env.PORT ?? 3301;
