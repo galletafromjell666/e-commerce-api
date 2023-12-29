@@ -12,9 +12,7 @@
     // "lib": ["dom", "es6"],
     "baseUrl": "./src",
     "paths": {
-      "@/*": [
-        "./*"
-      ],
+      "@/*": ["./*"],
       "@src": ["./src/*"],
       "@routes": ["./src/routes/*"],
       "@controllers": ["./src/controllers/*"],
@@ -23,21 +21,13 @@
       "@interfaces": ["./src/interfaces/*"],
       "@models": ["./src/models/*"],
       "@utils": ["./src/utils/*"],
-      "@schemas": ["./src/schemas/*"],
+      "@schemas": ["./src/schemas/*"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "dist"
-  ],
-  "include": [
-    "src/**/*.ts",
-    "tests/**/*.spec.ts"
-  ],
-  "files": [
-    "src/app.ts"
-  ],
+  "exclude": ["node_modules", "dist"],
+  "include": ["src/**/*.ts", "tests/**/*.spec.ts"],
+  "files": ["src/app.ts"],
   "ts-node": {
     "require": ["tsconfig-paths/register"]
-}
+  }
 }

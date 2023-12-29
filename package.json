@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "nodemon ./src/app.ts",
     "lint": "eslint src --ext .ts",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --write .",
+    "check-format": "prettier --check ."
   },
   "keywords": [],
   "author": "",

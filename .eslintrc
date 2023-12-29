@@ -1,46 +1,44 @@
 {
-    "extends": [
-        "plugin:prettier/recommended",
-        "prettier",
-        "eslint:recommended",
-        "airbnb-base",
-        "plugin:import/typescript",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "sourceType": "module",
-        "project": "./tsconfig.json",
-        "tsconfigRootDir": "./"
+  "extends": [
+    "plugin:prettier/recommended",
+    "prettier",
+    "eslint:recommended",
+    "airbnb-base",
+    "plugin:import/typescript",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "sourceType": "module",
+    "project": "./tsconfig.json",
+    "tsconfigRootDir": "./"
+  },
+  "settings": {
+    "typescript": {
+      "project": ["packages/tsconfig.json"]
     },
-    "settings": {
-      "typescript": {
-        "project": [
-          "packages/tsconfig.json"
-        ]
-      },
-      "import/resolver": {
-        "typescript": {},
-        "node": {
-          "extensions": [".js", ".jsx", ".ts", ".tsx"]
-        }
+    "import/resolver": {
+      "typescript": {},
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
-    },
-    "plugins": [
-        "@typescript-eslint",
-        "import"
-      ],
-    "rules": {
-        "prettier/prettier": ["error", { "singleQuote": true }],
-        "import/prefer-default-export": "warn",
-        "import/extensions": "off",
-        "no-void": ["error", { "allowAsStatement": true }],
-        "object-curly-newline": ["error", {
-            "multiline": true,
-            "consistent": true
-          }],
-          "@typescript-eslint/no-unused-vars": [
+    }
+  },
+  "plugins": ["@typescript-eslint", "import"],
+  "rules": {
+    "prettier/prettier": ["error", { "singleQuote": true }],
+    "import/prefer-default-export": "warn",
+    "import/extensions": "off",
+    "no-void": ["error", { "allowAsStatement": true }],
+    "object-curly-newline": [
+      "error",
+      {
+        "multiline": true,
+        "consistent": true
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": [
       "warn",
       {
         "argsIgnorePattern": "^_",
@@ -66,15 +64,15 @@
         "modifiers": ["unused"]
       }
     ]
-    },
-    "overrides": [
-      {
-        "files": ["src/routes/*.ts"],
-        "rules": {
-          // Disabling this rule for a type issue, remove when this is solved:
-          // https://github.com/express-promise-router/express-promise-router/issues/230#issuecomment-983004686
-          "@typescript-eslint/no-misused-promises": "off"
-        }
+  },
+  "overrides": [
+    {
+      "files": ["src/routes/*.ts"],
+      "rules": {
+        // Disabling this rule for a type issue, remove when this is solved:
+        // https://github.com/express-promise-router/express-promise-router/issues/230#issuecomment-983004686
+        "@typescript-eslint/no-misused-promises": "off"
       }
-    ]
+    }
+  ]
 }

@@ -1,8 +1,8 @@
 const config = {
   appenders: {
-    console: { type: 'console' },
+    console: { type: "console" },
     file: {
-      type: 'file',
+      type: "file",
       filename: `${__dirname}/logs/app.log`,
       maxLogSize: 10485760,
       backups: 3,
@@ -10,7 +10,7 @@ const config = {
     },
   },
   categories: {
-    default: { appenders: ['console', 'file'], level: 'info' },
+    default: { appenders: ["console", "file"], level: "info" },
   },
 };
 

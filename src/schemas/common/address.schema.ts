@@ -39,6 +39,7 @@ const addressSchema = {
       nullable: true,
     },
   },
+  required: ['country', 'street1', 'city', 'state', 'zipCode'],
 };
 
 // it is only used as a reference for order and user
