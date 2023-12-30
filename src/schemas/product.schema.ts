@@ -18,6 +18,8 @@ const featuresSchema = {
   required: ['title', 'description'],
 };
 
+ajvInstance.addSchema(featuresSchema);
+
 const baseProperties = {
   name: {
     type: 'string',
@@ -29,11 +31,9 @@ const baseProperties = {
     minLength: 2,
     maxLength: 100,
   },
-  price: {
-    type: 'float32',
-  },
+  price: { type: 'number' },
   quantityAvailable: {
-    type: 'uint16',
+    type: 'number',
   },
   features: {
     type: 'array',
@@ -42,14 +42,11 @@ const baseProperties = {
     },
   },
 };
-
-ajvInstance.addSchema(featuresSchema);
-
 const createSchema = {
   $id: 'api://ajv/product.create.schema',
   type: 'object',
   properties: baseProperties,
-  required: ['name', 'brand', 'price', 'quantityAvailable'],
+  required: ['name', 'brand', 'price', 'quantityAvailable', 'features'],
   additionalProperties: false,
 };
 
@@ -58,12 +55,7 @@ const patchSchema = {
   type: 'object',
   properties: baseProperties,
   // This will validate that the body has at least one of the following properties
-  anyOf: [
-    { required: ['name'] },
-    { required: ['brand'] },
-    { required: ['quantityAvailable'] },
-    { required: ['price'] },
-  ],
+  minProperties: 1,
   additionalProperties: false,
 };
 

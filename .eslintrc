@@ -27,7 +27,7 @@
   },
   "plugins": ["@typescript-eslint", "import"],
   "rules": {
-    "prettier/prettier": ["error", { "singleQuote": true }],
+    "prettier/prettier": ["error", { "singleQuote": true , "endOfLine": "auto" }],
     "import/prefer-default-export": "warn",
     "import/extensions": "off",
     "no-void": ["error", { "allowAsStatement": true }],
@@ -63,7 +63,9 @@
         "format": null,
         "modifiers": ["unused"]
       }
-    ]
+    ],
+    "class-methods-use-this": "off",
+    "@typescript-eslint/unbound-method": "off"
   },
   "overrides": [
     {

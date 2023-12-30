@@ -6,9 +6,11 @@ const commentSchema = new Schema<Comment>(
     customer: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Customer',
+      required: true,
     },
     description: {
       type: String,
+      required: true,
     },
     rating: {
       type: Number,
