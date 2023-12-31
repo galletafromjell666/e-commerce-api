@@ -1,25 +1,36 @@
-import productController from '@/controllers/product.controller';
-import validateDto from '@/middlewares/validateDto';
-import { compiledCreateSchema } from '@/schemas/product.schema';
 import { Router } from 'express';
+import productController from '@/controllers/product.controller';
+import {
+  unhandledErrorMiddleware,
+  validateRequestBodyMiddleware,
+  validateRequestParamsMiddleware,
+} from '@/middlewares';
+import { compiledIdSchema } from '@/schemas/common/queryParams.schema';
+import { compiledCreateSchema } from '@/schemas/product.schema';
 
 const router = Router();
 // all
-router.get('/products');
+router.get('/', (_req, res) => {
+  res.send('hello');
+});
 // specific
-router.get('/products/:productId');
+router.get(
+  '/:id',
+  validateRequestParamsMiddleware(compiledIdSchema),
+  productController.getProductById,
+);
 
 // create
 router.post(
-  '/products',
-  validateDto(compiledCreateSchema),
+  '/',
+  validateRequestBodyMiddleware(compiledCreateSchema),
   productController.createProduct,
 );
 
 // update
-router.patch('/products/:productId');
+router.patch('/:productId');
 
 // delete
-router.delete('/products/:productId');
+router.delete('/:productId');
 
 export default router;

@@ -1,6 +1,6 @@
 import ajvInstance from '@/utils/ajvInstance';
 
-const featuresSchema = {
+const productFeature = {
   $id: 'api://ajv/product.feature.schema',
   type: 'object',
   properties: {
@@ -18,7 +18,7 @@ const featuresSchema = {
   required: ['title', 'description'],
 };
 
-ajvInstance.addSchema(featuresSchema);
+ajvInstance.addSchema(productFeature);
 
 const baseProperties = {
   name: {

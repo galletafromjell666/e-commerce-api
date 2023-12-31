@@ -1,7 +1,4 @@
 import ajvInstance from '@/utils/ajvInstance';
-import addressSchema from './common/address.schema';
-
-ajvInstance.addSchema(addressSchema);
 
 const baseProperties = {
   firstName: {

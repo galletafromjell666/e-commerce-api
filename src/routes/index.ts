@@ -3,6 +3,12 @@ import { readdirSync } from 'fs';
 import logger from '@/utils/logger';
 
 const router = Router();
+
+// test route
+router.get('/test', (_req, resp) => {
+  resp.status(418).send({ isRunning: true, time: Date.now() });
+});
+
 const ROUTER_PATH = __dirname;
 const cleanFileName = (fileName: string) => fileName.split('.').shift();
 

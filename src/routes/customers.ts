@@ -1,13 +1,13 @@
-import customerController from '@/controllers/customer.controller';
-import validateDto from '@/middlewares/validateDto';
-import { compiledCreateSchema } from '@/schemas/customer.schema';
 import { Router } from 'express';
+import customerController from '@/controllers/customer.controller';
+import { compiledCreateSchema } from '@/schemas/customer.schema';
+import { validateRequestBodyMiddleware } from '@/middlewares';
 
 const router = Router();
 
 router.post(
   '/register',
-  validateDto(compiledCreateSchema),
+  validateRequestBodyMiddleware(compiledCreateSchema),
   customerController.register,
 );
 
