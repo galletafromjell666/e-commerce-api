@@ -1,4 +1,4 @@
-import { type Response, type Request } from 'express';
+import { type Response, type Request, type NextFunction } from 'express';
 import { Duplicate, NotFound } from '@/errors';
 import Ajv from 'ajv';
 import { logger } from '@/utils';
@@ -6,13 +6,24 @@ import { logger } from '@/utils';
 // TODO: Add a type for this enviroment variable
 const ENV = <string>process.env.ENV;
 
-function unhandledErrorMiddleware(e: Error, _req: Request, res: Response) {
+function unhandledErrorMiddleware(
+  e: Error,
+  _req: Request,
+  res: Response,
+  _next: NextFunction,
+) {
   let statusCode = 500;
   let type = 'Server Error';
   let message = 'Internal server Error, Please try again later';
   let details;
   let resource;
-  logger.info('running unhandledError middleware');
+  let parsedStack;
+
+  logger.error(`Error handler middleware: ${e?.message}`);
+
+  if (e.stack && ENV === 'DEV') {
+    parsedStack = e.stack.split('\n');
+  }
 
   if (e instanceof Duplicate) {
     statusCode = 409;
@@ -35,18 +46,19 @@ function unhandledErrorMiddleware(e: Error, _req: Request, res: Response) {
       data: schemaError.data,
     }));
   }
+
   const errorResponse = {
     type,
     message,
     details,
     resource,
     detailed:
-      ENV === 'dev'
+      ENV === 'DEV'
         ? e.message
         : 'Detailed error message  only available in development mode',
     stack:
-      ENV === 'dev'
-        ? e.stack
+      ENV === 'DEV'
+        ? parsedStack
         : 'Detailed error stack  only available in development mode',
     time: Date.now(),
   };
