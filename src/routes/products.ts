@@ -1,16 +1,19 @@
 import { Router } from 'express';
 import productController from '@/controllers/product.controller';
 import {
-  unhandledErrorMiddleware,
   validateRequestBodyMiddleware,
   validateRequestParamsMiddleware,
 } from '@/middlewares';
-import { compiledIdSchema } from '@/schemas/common/queryParams.schema';
+import {
+  compiledIdSchema,
+  compiledProductQueryParams,
+} from '@/schemas/common/queryParams.schema';
 import { compiledCreateSchema } from '@/schemas/product.schema';
 
 const router = Router();
 // all
 router.get('/', (_req, res) => {
+  validateRequestParamsMiddleware(compiledProductQueryParams);
   res.send('hello');
 });
 // specific

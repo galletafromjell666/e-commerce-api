@@ -33,7 +33,7 @@ const baseProperties = {
   },
   price: { type: 'number' },
   quantityAvailable: {
-    type: 'number',
+    type: 'integer',
   },
   features: {
     type: 'array',

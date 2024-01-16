@@ -1,6 +1,7 @@
 import { Product } from '@/interfaces/product.interface';
 import ProductService from '@/services/product.service';
 import { type Request, type Response, type NextFunction } from 'express';
+import type { ProductsQueryParams } from '@/services/product.service';
 
 class ProductController {
   constructor() {
@@ -25,6 +26,21 @@ class ProductController {
     try {
       const { id } = req.params;
       const response = await ProductService.getProductById(id);
+      resp.status(200).send(response);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async getProducts(req: Request, resp: Response, next: NextFunction) {
+    try {
+      const { search, sort, page, perPage } = req.params;
+      const response = await ProductService.getProducts({
+        search,
+        sort,
+        page,
+        perPage,
+      } as unknown as ProductsQueryParams);
       resp.status(200).send(response);
     } catch (e) {
       next(e);

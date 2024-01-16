@@ -3,6 +3,14 @@ import { Product } from '@/interfaces/product.interface';
 import productModel from '@/models/product.model';
 import mongoose from 'mongoose';
 
+// TODO: move this type to a global file or so
+export interface ProductsQueryParams {
+  search?: string;
+  sort?: 'asc' | 'desc';
+  page?: number;
+  perPage: number;
+}
+
 class ProductService {
   constructor() {
     this.getProductById = this.getProductById.bind(this);
@@ -47,6 +55,11 @@ class ProductService {
         _id: new mongoose.Types.ObjectId(id),
       })
       .exec();
+  }
+
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  async getProducts({ search, sort, page, perPage }: ProductsQueryParams) {
+    // TODO: Sorting, search and pagination
   }
 }
 
