@@ -4,18 +4,18 @@ import {
   validateRequestBodyMiddleware,
   validateRequestParamsMiddleware,
 } from '@/middlewares';
-import {
-  compiledIdSchema,
-  compiledProductQueryParams,
-} from '@/schemas/common/queryParams.schema';
+import { compiledIdSchema } from '@/schemas/common/queryParams.schema';
 import { compiledCreateSchema } from '@/schemas/product.schema';
+import validateRequestQueryMiddleware from '@/middlewares/validateRequestQuery.middleware';
+import { compiledProductQueryParams } from '@/schemas/common/productQuery.schema';
 
 const router = Router();
 // all
-router.get('/', (_req, res) => {
-  validateRequestParamsMiddleware(compiledProductQueryParams);
-  res.send('hello');
-});
+router.get(
+  '/',
+  validateRequestQueryMiddleware(compiledProductQueryParams),
+  productController.getProducts,
+);
 // specific
 router.get(
   '/:id',

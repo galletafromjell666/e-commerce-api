@@ -1,6 +1,7 @@
 import { NotFound } from '@/errors';
 import { Product } from '@/interfaces/product.interface';
 import productModel from '@/models/product.model';
+import { logger } from '@/utils';
 import mongoose from 'mongoose';
 
 // TODO: move this type to a global file or so
@@ -58,8 +59,8 @@ class ProductService {
   }
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  async getProducts({ search, sort, page, perPage }: ProductsQueryParams) {
-    // TODO: Sorting, search and pagination
+  async getProducts({ search, sort, page = 1, perPage }: ProductsQueryParams) {
+    return productModel.paginate({}, { page, limit: perPage });
   }
 }
 

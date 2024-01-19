@@ -1,10 +1,10 @@
 import { ValidationError, type ValidateFunction } from 'ajv';
 import { type Response, type Request, type NextFunction } from 'express';
 
-function validateRequestParamsMiddleware(ajvValidate: ValidateFunction) {
+function validateRequestQueryMiddleware(ajvValidate: ValidateFunction) {
   return (req: Request, _res: Response, next: NextFunction) => {
     try {
-      const isValid = ajvValidate(req.params);
+      const isValid = ajvValidate(req.query);
       if (!isValid) {
         throw new ValidationError(ajvValidate.errors!);
       }
@@ -15,4 +15,4 @@ function validateRequestParamsMiddleware(ajvValidate: ValidateFunction) {
   };
 }
 
-export default validateRequestParamsMiddleware;
+export default validateRequestQueryMiddleware;

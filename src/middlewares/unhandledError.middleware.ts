@@ -1,7 +1,7 @@
-import { type Response, type Request, type NextFunction } from 'express';
+import { ValidationError } from 'ajv';
 import { Duplicate, NotFound } from '@/errors';
-import Ajv from 'ajv';
 import { logger } from '@/utils';
+import { type Response, type Request, type NextFunction } from 'express';
 
 // TODO: Add a type for this enviroment variable
 const ENV = <string>process.env.ENV;
@@ -35,7 +35,7 @@ function unhandledErrorMiddleware(
     type = 'Client Error';
     message = e.message;
     resource = e.resource;
-  } else if (e instanceof Ajv.ValidationError) {
+  } else if (e instanceof ValidationError) {
     statusCode = 422;
     type = 'Client Error';
     message = 'Unprocessable Content';

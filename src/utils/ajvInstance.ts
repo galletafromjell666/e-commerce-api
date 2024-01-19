@@ -1,10 +1,15 @@
 import addressSchema from '@/schemas/common/address.schema';
-import Ajv from 'ajv';
+import Ajv from 'ajv/dist/2019';
 import addFormats from 'ajv-formats';
 import mongoose from 'mongoose';
 
 const ajvInstance = new Ajv({
   allErrors: true,
+  /**
+   * req.query and req.params properties have strings as values,
+   * it is easier to coerce types during validation
+   */
+  coerceTypes: true,
 });
 
 addFormats(ajvInstance);
