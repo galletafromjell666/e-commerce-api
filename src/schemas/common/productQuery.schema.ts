@@ -3,8 +3,8 @@ import ajvInstance from '@/utils/ajvInstance';
 const props = {
   search: {
     type: 'string',
-    minLength: 5,
-    maxLength: 100,
+    minLength: 1,
+    maxLength: 20,
   },
   sort: {
     type: 'string',
@@ -29,6 +29,10 @@ const productsQueryParams = {
   $id: 'api://ajv/query.schema',
   type: 'object',
   properties: props,
+  dependentRequired: {
+    sort: ['sortBy'],
+    sortBy: ['sort'],
+  },
   required: ['perPage'],
   additionalProperties: false,
 };

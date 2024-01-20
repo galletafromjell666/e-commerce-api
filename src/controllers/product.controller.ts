@@ -34,10 +34,11 @@ class ProductController {
 
   async getProducts(req: Request, resp: Response, next: NextFunction) {
     try {
-      const { search, sort, page, perPage } = req.query;
+      const { search, sort, page, perPage, sortBy } = req.query;
       const response = await ProductService.getProducts({
         search,
         sort,
+        sortBy,
         page,
         perPage,
       } as unknown as ProductsQueryParams);

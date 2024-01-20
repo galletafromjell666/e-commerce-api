@@ -1,17 +1,22 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { NotFound } from '@/errors';
 import { Product } from '@/interfaces/product.interface';
 import productModel from '@/models/product.model';
-import { logger } from '@/utils';
 import mongoose from 'mongoose';
 
 // TODO: move this type to a global file or so
 export interface ProductsQueryParams {
   search?: string;
+  sortBy?: 'name' | 'brand' | 'price';
   sort?: 'asc' | 'desc';
   page?: number;
   perPage: number;
 }
 
+// https://stackoverflow.com/a/38427476/17212989
+function escapeRegex(text: string): string {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
 class ProductService {
   constructor() {
     this.getProductById = this.getProductById.bind(this);
@@ -58,9 +63,30 @@ class ProductService {
       .exec();
   }
 
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  async getProducts({ search, sort, page = 1, perPage }: ProductsQueryParams) {
-    return productModel.paginate({}, { page, limit: perPage });
+  async getProducts({
+    search,
+    sort,
+    sortBy,
+    page = 1,
+    perPage,
+  }: ProductsQueryParams) {
+    let sortOptions;
+    if (sort !== undefined) {
+      const sortDirection = sort === 'asc' ? 1 : -1;
+      sortOptions = { [sortBy as string]: sortDirection };
+    }
+    let filterQuery = {};
+    if (search) {
+      const regex = new RegExp(escapeRegex(search), 'i');
+      filterQuery = {
+        $or: [{ name: { $regex: regex } }, { brand: { $regex: regex } }],
+      };
+    }
+    return productModel.paginate(filterQuery, {
+      page,
+      limit: perPage,
+      sort: sortOptions,
+    });
   }
 }
 
